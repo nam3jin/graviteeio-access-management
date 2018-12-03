@@ -46,6 +46,8 @@ public class User {
 
     private boolean enabled = true;
 
+    private boolean internal;
+
     /**
      * Security domain associated to the client
      */
@@ -147,6 +149,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isInternal() {
+        return internal;
+    }
+
+    public void setInternal(boolean internal) {
+        this.internal = internal;
     }
 
     public String getDomain() {

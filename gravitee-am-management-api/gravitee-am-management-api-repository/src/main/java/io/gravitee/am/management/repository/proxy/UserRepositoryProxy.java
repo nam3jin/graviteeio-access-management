@@ -48,6 +48,11 @@ public class UserRepositoryProxy extends AbstractProxy<UserRepository> implement
     }
 
     @Override
+    public Maybe<User> findByDomainAndUsernameAndSource(String domain, String username, String source) {
+        return target.findByDomainAndUsernameAndSource(domain, username, source);
+    }
+
+    @Override
     public Maybe<User> findById(String id) {
         return target.findById(id);
     }

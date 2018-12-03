@@ -37,6 +37,7 @@ import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 
 /**
  * @author Titouan COMPIEGNE (titouan.compiegne at graviteesource.com)
@@ -104,23 +105,22 @@ public class UsersResource extends AbstractResource {
     @ApiResponses({
             @ApiResponse(code = 201, message = "User successfully created"),
             @ApiResponse(code = 500, message = "Internal server error")})
-    public Response create(
+    public void create(
             @PathParam("domain") String domain,
             @ApiParam(name = "user", required = true)
-            @Valid @NotNull final NewUser newUser) {
-   /*     domainService.findById(domain);
-
-        User user = userService.create(domain, newUser);
-        if (user != null) {
-            return Response
-                    .created(URI.create("/domains/" + domain + "/users/" + user.getId()))
-                    .entity(user)
-                    .build();
-        }
-
-        return Response.serverError().build();*/
-
-        return Response.status(Response.Status.NOT_IMPLEMENTED).entity("Not implemented").build();
+            @Valid @NotNull final NewUser newUser,
+            @Suspended final AsyncResponse response) {
+        domainService.findById(domain)
+                .switchIfEmpty(Maybe.error(new DomainNotFoundException(domain)))
+                .flatMapSingle(irrelevant -> userService.create(domain, newUser)
+                        .map(user -> Response
+                                .created(URI.create("/domains/" + domain + "/users/" + user.getId()))
+                                .entity(user)
+                                .build())
+                )
+                .subscribe(
+                        result -> response.resume(result),
+                        error -> response.resume(error));
     }
 
     @Path("{user}")

@@ -49,4 +49,26 @@ export class ClientIdPComponent implements OnInit {
     });
   }
 
+  selectIdentityProvider(event, identityProviderId) {
+    (event.checked) ? this.client.identities.push(identityProviderId) :  this.client.identities.splice(this.client.identities.indexOf(identityProviderId), 1);
+    this.update();
+  }
+
+  selectOAuth2IdentityProvider(event, identityProviderId) {
+    (event.checked) ? this.client.oauth2Identities.push(identityProviderId) :  this.client.oauth2Identities.splice(this.client.oauth2Identities.indexOf(identityProviderId), 1);
+    this.update();
+  }
+
+  selectDefaultIdentityProvider(event) {
+    this.client.useDefaultIdentityProvider = event.checked;
+    this.update();
+  }
+
+  isIdentityProviderSelected(identityProviderId) {
+    return this.client.identities.includes(identityProviderId);
+  }
+
+  isOAuth2IdentityProviderSelected(identityProviderId) {
+    return this.client.oauth2Identities.includes(identityProviderId);
+  }
 }

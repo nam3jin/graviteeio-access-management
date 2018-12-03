@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.am.repository.management.api;
+package io.gravitee.am.gateway.handler.vertx.handler.scim;
 
-import io.gravitee.am.model.User;
-import io.gravitee.am.model.common.Page;
-import io.gravitee.am.repository.common.CrudRepository;
-import io.gravitee.am.repository.exceptions.TechnicalException;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
-
-import java.util.Set;
+import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.ext.web.Router;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Titouan COMPIEGNE (titouan.compiegne at graviteesource.com)
  * @author GraviteeSource Team
  */
-public interface UserRepository extends CrudRepository<User, String> {
+public class SCIMRouter {
 
-    Single<Set<User>> findByDomain(String domain);
+    @Autowired
+    private Vertx vertx;
 
-    Single<Page<User>> findByDomain(String domain, int page, int size);
+    public Router route() {
+        // Create the SCIM router
+        final Router router = Router.router(vertx);
 
-    Maybe<User> findByUsernameAndDomain(String domain, String username);
+        // Declare SCIM routes
+        // see <a href="https://tools.ietf.org/html/rfc7644#section-3.2">3.2. SCIM Endpoints and HTTP Methods</a>
 
-    Maybe<User> findByDomainAndUsernameAndSource(String domain, String username, String source);
+        return router;
+    }
 
 }

@@ -63,10 +63,11 @@ import {ScopeComponent} from './domain/settings/scopes/scope/scope.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {DummyComponent} from "./components/dummy/dummy.component";
-import {UsersComponent} from "./domain/users/users.component";
+import {UsersComponent} from "./domain/settings/users/users.component";
 import {UsersResolver} from "./resolvers/users.resolver";
-import {UserComponent} from "./domain/users/user/user.component";
+import {UserComponent} from "./domain/settings/users/user/user.component";
 import {UserResolver} from "./resolvers/user.resolver";
+import {UserCreationComponent} from "./domain/settings/users/creation/user-creation.component";
 import {DomainSettingsExtensionGrantsComponent} from "./domain/settings/extension-grants/extension-grants.component";
 import {ExtensionGrantCreationComponent} from "./domain/settings/extension-grants/creation/extension-grant-creation.component";
 import {ExtensionGrantComponent} from "./domain/settings/extension-grants/extension-grant/extension-grant.component";
@@ -322,24 +323,6 @@ const routes: Routes = [
           { path: 'oidc', component: ClientOIDCComponent }
         ]
       },
-      { path: 'users', component: UsersComponent,
-        resolve: {
-          users: UsersResolver
-        },
-        data: {
-          menu: {
-            label: 'Users',
-            icon: 'person',
-          }
-        }
-      },
-      {
-        path: 'users/:userId',
-        component: UserComponent,
-        resolve: {
-          user: UserResolver
-        }
-      },
       { path: 'settings', component: DomainSettingsComponent,
         resolve: {
           domain: DomainResolver,
@@ -494,6 +477,27 @@ const routes: Routes = [
               scopes: ScopesResolver
             }
           },
+          { path: 'users', component: UsersComponent,
+            resolve: {
+              users: UsersResolver
+            },
+            data: {
+              menu: {
+                label: 'Users',
+                section: 'User Management'
+              }
+            }
+          },
+          { path: 'users/new',
+            component: UserCreationComponent
+          },
+          {
+            path: 'users/:userId',
+            component: UserComponent,
+            resolve: {
+              user: UserResolver
+            }
+          }
         ]
       }
     ]

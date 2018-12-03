@@ -129,8 +129,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { HumanDatePipe } from './pipes/human-date.pipe';
 import { MapToIterablePipe } from './pipes/map-to-iterable.pipe';
 import { DummyComponent } from "./components/dummy/dummy.component";
-import { UsersComponent } from './domain/users/users.component';
-import { UserComponent } from './domain/users/user/user.component';
+import { UsersComponent } from './domain/settings/users/users.component';
+import { UserComponent } from './domain/settings/users/user/user.component';
+import { UserCreationComponent } from './domain/settings/users/creation/user-creation.component';
+import { UserClaimComponent } from './domain/settings/users/creation/user-claim.component';
 import { UserService} from "./services/user.service";
 import { UsersResolver } from "./resolvers/users.resolver";
 import { UserResolver } from "./resolvers/user.resolver";
@@ -214,6 +216,8 @@ import { ManagementGeneralComponent } from "./settings/management/general/genera
     DummyComponent,
     UsersComponent,
     UserComponent,
+    UserCreationComponent,
+    UserClaimComponent,
     ScopeCreationComponent,
     ScopeComponent,
     MaterialFileComponent,
@@ -278,7 +282,8 @@ import { ManagementGeneralComponent } from "./settings/management/general/genera
     CertitificatePublicKeyDialog,
     CreateRoleMapperComponent,
     SnackbarComponent,
-    MaterialFileComponent
+    MaterialFileComponent,
+    UserClaimComponent
   ],
   bootstrap: [AppComponent]
 })

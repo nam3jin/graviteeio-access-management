@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 import { Component, OnInit } from '@angular/core';
-import { UserService} from "../../services/user.service";
-import { SnackbarService } from "../../services/snackbar.service";
-import { DialogService } from "../../services/dialog.service";
+import { UserService} from "../../../services/user.service";
+import { SnackbarService } from "../../../services/snackbar.service";
+import { DialogService } from "../../../services/dialog.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AppConfig } from "../../../config/app.config";
+import { AppConfig } from "../../../../config/app.config";
 
 @Component({
   selector: 'app-users',
@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.domainId = this.route.snapshot.parent.params['domainId'];
+    this.domainId = this.route.snapshot.parent.parent.params['domainId'];
     if (this.router.routerState.snapshot.url.startsWith('/settings')) {
       this.domainId = AppConfig.settings.authentication.domainId;
     }

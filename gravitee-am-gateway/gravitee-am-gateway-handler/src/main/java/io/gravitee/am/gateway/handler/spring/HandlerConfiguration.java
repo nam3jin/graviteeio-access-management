@@ -17,6 +17,7 @@ package io.gravitee.am.gateway.handler.spring;
 
 import io.gravitee.am.gateway.handler.auth.UserAuthenticationManager;
 import io.gravitee.am.gateway.handler.auth.idp.IdentityProviderManager;
+import io.gravitee.am.gateway.handler.auth.idp.impl.GraviteeAuthenticationProvider;
 import io.gravitee.am.gateway.handler.auth.idp.impl.IdentityProviderManagerImpl;
 import io.gravitee.am.gateway.handler.auth.impl.UserAuthenticationManagerImpl;
 import io.gravitee.am.gateway.handler.jwt.JwtService;
@@ -25,6 +26,9 @@ import io.gravitee.am.gateway.handler.oauth2.spring.OAuth2Configuration;
 import io.gravitee.am.gateway.handler.oidc.spring.OpenIDConfiguration;
 import io.gravitee.am.gateway.handler.vertx.spring.SecurityDomainRouterConfiguration;
 import io.gravitee.am.gateway.service.spring.ServiceConfiguration;
+import io.gravitee.am.identityprovider.api.AuthenticationProvider;
+import io.gravitee.am.service.authentication.crypto.password.PasswordEncoder;
+import io.gravitee.am.service.authentication.crypto.password.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -55,5 +59,15 @@ public class HandlerConfiguration {
     @Bean
     public JwtService jwtService() {
         return new JwtServiceImpl();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new GraviteeAuthenticationProvider();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
